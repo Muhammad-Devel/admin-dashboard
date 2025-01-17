@@ -31,17 +31,15 @@ const ProductsControl = () => {
         }
     }, [productAdded]) // Reload products when a new product is added
 
-    const handleDelete = (id) => {
-        const updatedProducts = productList.filter((product) => product.id !== id)
+    const handleDelete = (index) => {
+        const updatedProducts = productList.filter((product, i) => i !== index)
+
         setProductList(updatedProducts)
     }
 
-    const handleEdit = (product) => {
-        setEditProductId(product.id) // Set the ID of the product being edited
-        console.log('prpductId:', product.id)
-        localStorage.setItem('productId', product.id)
-        console.log('productId:', localStorage.getItem('productId'))
-
+    const handleEdit = (product, index) => {
+        setEditProductId(index) // Set the ID of the product being edited
+        console.log('prpductid:', index)
         setEditedProduct(product) // Load the product data into edit state
     }
 
@@ -133,8 +131,8 @@ const ProductsControl = () => {
                         {/* Product list */}
                         {productList.map((product, index) => (
                             <tr key={index} className="border-b border-claret-200 hover:bg-claret-50">
-                                {console.log('productID:', product.id)}}
-                                {editProductId === product.id ? (
+                                {console.log('productID:', index)}
+                                {editProductId === index ? (
                                     <>
                                         <td className="py-3 px-6">
                                             <input
@@ -204,12 +202,12 @@ const ProductsControl = () => {
                                         <td className="py-3 px-6 text-right flex justify-end gap-4">
                                             <button
                                                 className="text-claret-500 hover:text-claret-700"
-                                                onClick={() => handleEdit(product)}
+                                                onClick={() => handleEdit(product, index)}
                                             >
                                                 <HiOutlinePencilAlt size={20} />
                                             </button>
                                             <button
-                                                onClick={() => handleDelete(product.id)}
+                                                onClick={() => handleDelete(index)}
                                                 className="text-red-500 hover:text-red-700"
                                             >
                                                 <HiOutlineTrash size={20} />
