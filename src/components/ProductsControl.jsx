@@ -38,6 +38,10 @@ const ProductsControl = () => {
 
     const handleEdit = (product) => {
         setEditProductId(product.id) // Set the ID of the product being edited
+        console.log('prpductId:', product.id)
+        localStorage.setItem('productId', product.id)
+        console.log('productId:', localStorage.getItem('productId'))
+
         setEditedProduct(product) // Load the product data into edit state
     }
 
@@ -46,13 +50,17 @@ const ProductsControl = () => {
         setEditedProduct(null) // Clear edited product
     }
 
-    const handleSaveEdit = (id) => {
+    const handleSaveEdit = () => {
         // Simple validation before saving
         if (!editedProduct.name || !editedProduct.price || !editedProduct.quantity) {
             setError('Please fill all fields before saving.')
             return
         }
-        const updatedProductList = productList.map((product, i) => (product.charAt(i) === i ? editedProduct : product))
+
+        // Update product in the productList
+        const updatedProductList = productList.map((product) =>
+            product.id === editProductId ? editedProduct : product
+        )
         setProductList(updatedProductList)
         setEditProductId(null) // End editing mode
         setError(null) // Clear any error message
@@ -125,7 +133,8 @@ const ProductsControl = () => {
                         {/* Product list */}
                         {productList.map((product, index) => (
                             <tr key={index} className="border-b border-claret-200 hover:bg-claret-50">
-                                {editProductId === index ? (
+                                {console.log('productID:', product.id)}}
+                                {editProductId === product.id ? (
                                     <>
                                         <td className="py-3 px-6">
                                             <input
@@ -167,7 +176,7 @@ const ProductsControl = () => {
                                         </td>
                                         <td className="py-3 px-6 text-right flex justify-end gap-4">
                                             <button
-                                                onClick={() => handleSaveEdit(index)}
+                                                onClick={handleSaveEdit}
                                                 className="text-green-500 hover:text-green-700"
                                             >
                                                 <HiOutlineCheck size={20} />
@@ -200,7 +209,7 @@ const ProductsControl = () => {
                                                 <HiOutlinePencilAlt size={20} />
                                             </button>
                                             <button
-                                                onClick={() => handleDelete(index)}
+                                                onClick={() => handleDelete(product.id)}
                                                 className="text-red-500 hover:text-red-700"
                                             >
                                                 <HiOutlineTrash size={20} />
