@@ -7,7 +7,7 @@ import {
     HiOutlineX,
     HiOutlineXCircle
 } from 'react-icons/hi'
-import { createProduct, allProducts } from '../api/product'
+import { createProduct, allProducts, deleteProduct, updateProduct } from '../api/product'
 import AddProduct from './actions/AddProduct'
 
 const ProductsControl = () => {
@@ -21,25 +21,28 @@ const ProductsControl = () => {
     useEffect(() => {
         // Load products on component mount (initial render)
         const fetchProducts = async () => {
-            const products = await allProducts()
-            setProductList(products)
-            console.log('products:', products)
+            try {
+                const products = await allProducts()
+                console.log('products:', products)
+                setProductList(products)
+            } catch (error) {
+                console.error('Failed to fetch products:', error)
+                setError('Failed to fetch products.')
+            }
         }
         fetchProducts()
-        if (productAdded) {
-            setProductAdded(false)
-        }
-    }, [productAdded]) // Reload products when a new product is added
+    }, [productAdded]) // Refetch products when productAdded changes
 
     const handleDelete = (index) => {
         const updatedProducts = productList.filter((product, i) => i !== index)
+        const deleteMsg = deleteProduct(productList[index])
+        console.log('deleteMsg:', deleteMsg)
 
         setProductList(updatedProducts)
     }
 
     const handleEdit = (product, index) => {
         setEditProductId(index) // Set the ID of the product being edited
-        console.log('prpductid:', index)
         setEditedProduct(product) // Load the product data into edit state
     }
 
@@ -55,9 +58,14 @@ const ProductsControl = () => {
             return
         }
 
+        const success = updateProduct(editedProduct)
+        if (!success) {
+            setError('Failed to update product. Please try again.')
+            return
+        }
         // Update product in the productList
-        const updatedProductList = productList.map((product) =>
-            product.id === editProductId ? editedProduct : product
+        const updatedProductList = productList.map((product, index) =>
+            index === editProductId ? editedProduct : product
         )
         setProductList(updatedProductList)
         setEditProductId(null) // End editing mode
@@ -99,7 +107,14 @@ const ProductsControl = () => {
             </div>
 
             {/* Add Product Form */}
-            {showAddProductForm && <AddProduct handleAddProduct={handleAddProduct} isVisible={setShowAddProductForm} />}
+            {showAddProductForm && (
+                <div
+                    className="transform transition-transform duration-300 ease-in-out"
+                    style={{ height: showAddProductForm ? 'auto' : '0', opacity: showAddProductForm ? '1' : '0' }}
+                >
+                    <AddProduct handleAddProduct={handleAddProduct} isVisible={setShowAddProductForm} />
+                </div>
+            )}
 
             <div className="overflow-x-auto bg-white rounded-lg shadow-lg">
                 <table className="min-w-full text-sm bg-white">
@@ -129,94 +144,105 @@ const ProductsControl = () => {
                                 </tr>
                             ))}
                         {/* Product list */}
-                        {productList.map((product, index) => (
-                            <tr key={index} className="border-b border-claret-200 hover:bg-claret-50">
-                                {console.log('productID:', index)}
-                                {editProductId === index ? (
-                                    <>
-                                        <td className="py-3 px-6">
-                                            <input
-                                                type="text"
-                                                name="name"
-                                                value={editedProduct.name}
-                                                onChange={handleChange}
-                                                className="w-full p-1 border border-claret-300 rounded-md"
-                                            />
-                                        </td>
-                                        <td className="py-3 px-6">
-                                            <input
-                                                type="number"
-                                                name="price"
-                                                value={editedProduct.price}
-                                                onChange={handleChange}
-                                                className="w-full p-1 border border-claret-300 rounded-md"
-                                            />
-                                        </td>
-                                        <td className="py-3 px-6">
-                                            <input
-                                                type="number"
-                                                name="quantity"
-                                                value={editedProduct.quantity}
-                                                onChange={handleChange}
-                                                className="w-full p-1 border border-claret-300 rounded-md"
-                                            />
-                                        </td>
-                                        <td className="py-3 px-6">
-                                            <select
-                                                name="status"
-                                                value={editedProduct.status}
-                                                onChange={handleChange}
-                                                className="w-full p-1 border border-claret-300 rounded-md"
+                        {productList.length !== 0 &&
+                            productList.map((product, index) => (
+                                <tr key={index} className="border-b border-claret-200 hover:bg-claret-50">
+                                    {console.log('productID:', index)}
+                                    {editProductId === index ? (
+                                        <>
+                                            <td className="py-3 px-6">
+                                                <input
+                                                    type="text"
+                                                    name="name"
+                                                    value={editedProduct.name}
+                                                    onChange={handleChange}
+                                                    className="w-full p-1 border border-claret-300 rounded-md"
+                                                />
+                                            </td>
+                                            <td className="py-3 px-6">
+                                                <textarea
+                                                    rows={4}
+                                                    cols={40}
+                                                    name="name"
+                                                    value={editedProduct.description}
+                                                    onChange={handleChange}
+                                                    className="w-full p-1 border border-claret-300 rounded-md"
+                                                />
+                                            </td>
+                                            <td className="py-3 px-6">
+                                                <input
+                                                    type="number"
+                                                    name="price"
+                                                    value={editedProduct.price}
+                                                    onChange={handleChange}
+                                                    className="w-full p-1 border border-claret-300 rounded-md"
+                                                />
+                                            </td>
+                                            <td className="py-3 px-6">
+                                                <input
+                                                    type="number"
+                                                    name="quantity"
+                                                    value={editedProduct.quantity}
+                                                    onChange={handleChange}
+                                                    className="w-full p-1 border border-claret-300 rounded-md"
+                                                />
+                                            </td>
+                                            <td className="py-3 px-6">
+                                                <select
+                                                    name="status"
+                                                    value={editedProduct.status}
+                                                    onChange={handleChange}
+                                                    className="w-full p-1 border border-claret-300 rounded-md"
+                                                >
+                                                    <option value="true">Available</option>
+                                                    <option value="false">Out of Stock</option>
+                                                </select>
+                                            </td>
+                                            <td className="py-3 px-6 text-right flex justify-end gap-4">
+                                                <button
+                                                    onClick={handleSaveEdit}
+                                                    className="text-green-500 hover:text-green-700"
+                                                >
+                                                    <HiOutlineCheck size={20} />
+                                                </button>
+                                                <button
+                                                    onClick={handleCancelEdit}
+                                                    className="text-red-500 hover:text-red-700"
+                                                >
+                                                    <HiOutlineX size={20} />
+                                                </button>
+                                            </td>
+                                        </>
+                                    ) : (
+                                        <>
+                                            <td className="py-3 px-6 text-claret-800">{product.name}</td>
+                                            <td className="py-3 px-6 text-claret-800">${product.price}</td>
+                                            <td className="py-3 px-6 text-claret-800">{product.quantity}</td>
+                                            <td
+                                                className={`py-3 px-6 ${
+                                                    product.status === 'true' ? 'text-green-600' : 'text-red-600'
+                                                }`}
                                             >
-                                                <option value="true">Available</option>
-                                                <option value="false">Out of Stock</option>
-                                            </select>
-                                        </td>
-                                        <td className="py-3 px-6 text-right flex justify-end gap-4">
-                                            <button
-                                                onClick={handleSaveEdit}
-                                                className="text-green-500 hover:text-green-700"
-                                            >
-                                                <HiOutlineCheck size={20} />
-                                            </button>
-                                            <button
-                                                onClick={handleCancelEdit}
-                                                className="text-red-500 hover:text-red-700"
-                                            >
-                                                <HiOutlineX size={20} />
-                                            </button>
-                                        </td>
-                                    </>
-                                ) : (
-                                    <>
-                                        <td className="py-3 px-6 text-claret-800">{product.name}</td>
-                                        <td className="py-3 px-6 text-claret-800">${product.price}</td>
-                                        <td className="py-3 px-6 text-claret-800">{product.quantity}</td>
-                                        <td
-                                            className={`py-3 px-6 ${
-                                                product.status === 'true' ? 'text-green-600' : 'text-red-600'
-                                            }`}
-                                        >
-                                            {product.status === 'true' ? 'Available' : 'Out of Stock'}
-                                        </td>
-                                        <td className="py-3 px-6 text-right flex justify-end gap-4">
-                                            <button
-                                                className="text-claret-500 hover:text-claret-700"
-                                                onClick={() => handleEdit(product, index)}
-                                            >
-                                                <HiOutlinePencilAlt size={20} />
-                                            </button>
-                                            <button
-                                                onClick={() => handleDelete(index)}
-                                                className="text-red-500 hover:text-red-700"
-                                            >
-                                                <HiOutlineTrash size={20} />
-                                            </button>
-                                        </td>
-                                    </>
-                                )}
-                            </tr>
-                        ))}
+                                                {product.status === 'true' ? 'Available' : 'Out of Stock'}
+                                            </td>
+                                            <td className="py-3 px-6 text-right flex justify-end gap-4">
+                                                <button
+                                                    className="text-claret-500 hover:text-claret-700"
+                                                    onClick={() => handleEdit(product, index)}
+                                                >
+                                                    <HiOutlinePencilAlt size={20} />
+                                                </button>
+                                                <button
+                                                    onClick={() => handleDelete(index)}
+                                                    className="text-red-500 hover:text-red-700"
+                                                >
+                                                    <HiOutlineTrash size={20} />
+                                                </button>
+                                            </td>
+                                        </>
+                                    )}
+                                </tr>
+                            ))}
                     </tbody>
                 </table>
             </div>
