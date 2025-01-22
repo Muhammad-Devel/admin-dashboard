@@ -183,7 +183,7 @@ const Customers = () => {
                                         <td className="py-3 px-6">{customer.name}</td>
                                         <td className="py-3 px-6">{customer.email}</td>
                                         <td className="py-3 px-6">{customer.phone}</td>
-                                        <td className="py-3 px-6">{customer.byOrders}</td>
+                                        <td className="py-3 px-6">{customer.byOrders``}</td>
                                         <td className="py-3 px-6 text-right flex justify-end gap-4">
                                             <button
                                                 onClick={() => handleEdit(customer, index)}
