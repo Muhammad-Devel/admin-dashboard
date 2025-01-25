@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react'
 import { HiOutlineTrash, HiOutlinePencilAlt, HiPlus, HiOutlineCheck, HiOutlineX } from 'react-icons/hi'
-import { allCustomers, deleteCustomer, updateCustomer, createCustomer } from '../../api/customers'
+import { allCustomers, deleteCustomer, updateCustomer, createCustomer } from '../../services/customers'
 import AddCustomer from '../actions/AddCustomer'
 
 const Customers = () => {

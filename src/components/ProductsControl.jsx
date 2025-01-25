@@ -7,7 +7,7 @@ import {
     HiOutlineX,
     HiOutlineXCircle
 } from 'react-icons/hi'
-import { createProduct, allProducts, deleteProduct, updateProduct } from '../api/product'
+import { createProduct, allProducts, deleteProduct, updateProduct } from '../services/product'
 import AddProduct from './actions/AddProduct'
 
 const ProductsControl = () => {
