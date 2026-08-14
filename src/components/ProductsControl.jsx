@@ -7,31 +7,89 @@ import {
     HiOutlineX,
     HiOutlineXCircle
 } from 'react-icons/hi'
-import { createProduct, allProducts, deleteProduct, updateProduct } from '../services/product'
+import { createProduct, deleteProduct, updateProduct } from '../services/product'
 import AddProduct from './actions/AddProduct'
 
+// products
+
+const products = [
+  {
+    id: 1,
+    name: 'MacBook M1 Pro 14',
+    price: 1499,
+    quantity: 341,
+    status: 'true',
+    description: 'Apple M1 Pro laptop with 14-inch display and 16GB RAM.'
+  },
+  {
+    id: 2,
+    name: 'AirPods Pro',
+    price: 249,
+    quantity: 128,
+    status: 'true',
+    description: 'Wireless earbuds with active noise cancellation and spatial audio.'
+  },
+  {
+    id: 3,
+    name: 'iPhone 15',
+    price: 999,
+    quantity: 86,
+    status: 'false',
+    description: 'Latest iPhone with A17 Pro chip and titanium design.'
+  },
+  {
+    id: 4,
+    name: 'Samsung Galaxy Watch 6',
+    price: 329,
+    quantity: 45,
+    status: 'true',
+    description: 'Smartwatch with fitness tracking and AMOLED display.'
+  },
+  {
+    id: 5,
+    name: 'Sony WH-1000XM5',
+    price: 399,
+    quantity: 12,
+    status: 'false',
+    description: 'Premium over-ear headphones with adaptive noise cancellation.'
+  }
+];
+
 const ProductsControl = () => {
-    const [productList, setProductList] = useState([])
+    const [productList, setProductList] = useState([]) // Initialize with mock data
     const [showAddProductForm, setShowAddProductForm] = useState(false) // Toggle add product form visibility
     const [editedProduct, setEditedProduct] = useState(null) // To track product being edited
     const [editProductId, setEditProductId] = useState(null) // To track editing product ID
     const [error, setError] = useState(null)
     const [productAdded, setProductAdded] = useState(false) // Track if a product was successfully added
 
-    useEffect(() => {
-        // Load products on component mount (initial render)
-        const fetchProducts = async () => {
-            try {
-                const products = await allProducts()
-                console.log('products:', products)
-                setProductList(products)
-            } catch (error) {
-                console.error('Failed to fetch products:', error)
-                setError('Failed to fetch products.')
-            }
+    // useEffect(() => {
+    //     // Load products on component mount (initial render)
+    //     const fetchProducts = async () => {
+    //         try {
+    //             const products = await allProducts()
+    //             console.log('products:', products)
+    //             setProductList(products)
+    //         } catch (error) {
+    //             console.error('Failed to fetch products:', error)
+    //             setError('Failed to fetch products.')
+    //         }
+    //     }
+    //     fetchProducts()
+    // }, [productAdded]) // Refetch products when productAdded changes
+
+useEffect(() => {
+    // Load products on component mount (initial render)
+    const fetchProducts = async () => {
+        try {
+            setProductList(products)
+        } catch (error) {
+            console.error('Failed to fetch products:', error)
+            setError('Failed to fetch products.')
         }
-        fetchProducts()
-    }, [productAdded]) // Refetch products when productAdded changes
+    }
+    fetchProducts()
+}, [productAdded]) // Refetch products when productAdded changes
 
     const handleDelete = (index) => {
         const updatedProducts = productList.filter((product, i) => i !== index)

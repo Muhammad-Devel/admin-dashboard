@@ -13,7 +13,7 @@ export const Sidebar = () => {
         <div className="bg-claret-500 w-60 p-3 flex flex-col  text-white">
             <div className="flex items-center gap-2 px-1 py-3">
                 <FcBullish fontSize={24} />
-                <span className="text-claret-900 text-lg">Admin's Order</span>
+                <span className="text-claret-900 text-lg">Admin Dashboard</span>
             </div>
             <div className="flex-1 py-8 flex flex-col gap-0.5">
                 {DASHBOARD_SIDEBAR_LINKS.map((item) => (

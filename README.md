@@ -1,70 +1,90 @@
-# Getting Started with Create React App
+# React Admin Dashboard
 
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+A modern and responsive Admin Dashboard built with React and Tailwind CSS.
 
-## Available Scripts
+## Features
 
-In the project directory, you can run:
+- Responsive Admin Dashboard
+- Sales statistics
+- Revenue analytics
+- Product management
+- Order management
+- Customer management
+- Transactions overview
+- Messages section
+- Settings page
+- Responsive sidebar navigation
+- Charts and data visualization
+- Clean and modern UI
 
-### `npm start`
+## Tech Stack
 
-Runs the app in the development mode.\
-Open [http://localhost:3000](http://localhost:3000) to view it in your browser.
+- React
+- Tailwind CSS
+- React Router
+- JavaScript
+- Chart Library
 
-The page will reload when you make changes.\
-You may also see any lint errors in the console.
+## Requirements
 
-### `npm test`
+Before installing the project, make sure you have:
 
-Launches the test runner in the interactive watch mode.\
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
+- Node.js 18 or higher
+- npm 9 or higher
 
-### `npm run build`
+## Installation
 
-Builds the app for production to the `build` folder.\
-It correctly bundles React in production mode and optimizes the build for the best performance.
+Clone or extract the project:
 
-The build is minified and the filenames include the hashes.\
-Your app is ready to be deployed!
+```bash
+git clone YOUR_REPOSITORY_URL
+cd admin-dashboard
 
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
+Install dependencies:
 
-### `npm run eject`
+npm install
 
-**Note: this is a one-way operation. Once you `eject`, you can't go back!**
+Start the development server:
 
-If you aren't satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
+npm start
 
-Instead, it will copy all the configuration files and the transitive dependencies (webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you're on your own.
+The application will run locally at:
 
-You don't have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn't feel obligated to use this feature. However we understand that this tool wouldn't be useful if you couldn't customize it when you are ready for it.
+http://localhost:3000
 
-## Learn More
+Build for Production
+npm run build
+Project Structure
+src/
+├── components/
+├── pages/
+├── assets/
+├── data/
+└── App.js
+Customization
 
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
+You can customize:
 
-To learn React, check out the [React documentation](https://reactjs.org/).
+Colors
+Typography
+Dashboard statistics
+Products
+Orders
+Customers
+Charts
+Navigation items
+Layout
 
-### Code Splitting
+The project is structured to make customization straightforward.
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/code-splitting](https://facebook.github.io/create-react-app/docs/code-splitting)
+Support
 
-### Analyzing the Bundle Size
+If you have questions or issues with the template, please contact the seller through the platform where you purchased this product.
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size](https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size)
+License
 
-### Making a Progressive Web App
+This product is licensed for use according to the terms included with this package.
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app](https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app)
+You may use the template in your own personal and commercial projects according to the license terms.
 
-### Advanced Configuration
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/advanced-configuration](https://facebook.github.io/create-react-app/docs/advanced-configuration)
-
-### Deployment
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/deployment](https://facebook.github.io/create-react-app/docs/deployment)
-
-### `npm run build` fails to minify
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify](https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify)
+You may not redistribute, resell, or publicly share the original source code as a standalone product.

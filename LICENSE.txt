@@ -1,0 +1,46 @@
+COMMERCIAL LICENSE
+
+Copyright (c) 2026 Muhammad-Devel
+
+This software is a commercial digital product.
+
+PURCHASE RIGHTS
+
+One purchase grants the purchaser a license to use this source code
+in personal and commercial projects.
+
+The purchaser may:
+
+- Use the template in personal projects.
+- Use the template in commercial client projects.
+- Modify the source code.
+- Customize the design and functionality.
+- Create applications based on the template.
+
+The purchaser may NOT:
+
+- Resell the original source code.
+- Redistribute the source code as a standalone product.
+- Upload or publish the original source code to public repositories.
+- Share the purchased source code with other people.
+- Create a competing template based primarily on the original source code
+  and redistribute it as a standalone product.
+
+OWNERSHIP
+
+The original source code and product remain the intellectual property
+of the seller.
+
+THIRD-PARTY SOFTWARE
+
+This product may include third-party libraries and dependencies.
+Each third-party dependency remains subject to its own license terms.
+
+DISCLAIMER
+
+This software is provided "as is", without warranties of any kind.
+The seller is not responsible for damages resulting from the use
+or modification of this product.
+
+Copyright (c) 2026 Muhammad-Devel
+All rights reserved.
